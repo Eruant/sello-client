@@ -1,14 +1,14 @@
 define(['Class'], function (Class) {
 
-    window.raf = (function () {
+    window.requestAnimationFrame = (function () {
         return window.requestAnimationFrame
-          || window.webkitRequestAnimationFrame
-          || window.mozRequestAnimationFrame
-          || window.oRequestAnimationFrame
-          || window.msRequestAnimationFrame
-          || function (/* function */ callback, /* DOMElement */ element){
-              window.setTimeout(callback, 1000 / 60);
-          };
+            || window.webkitRequestAnimationFrame
+            || window.mozRequestAnimationFrame
+            || window.oRequestAnimationFrame
+            || window.msRequestAnimationFrame
+            || function (/* function */ callback, /* DOMElement */ element){
+                window.setTimeout(callback, 1000 / 60);
+            };
     }());
 
     return Class.extend({
@@ -16,7 +16,8 @@ define(['Class'], function (Class) {
         defaults: {
             el: window.document,
             width: 600,
-            height: 400
+            height: 400,
+            modules: {}
         },
 
         init: function (options) {
@@ -50,7 +51,7 @@ define(['Class'], function (Class) {
             this.startTime = Date.now();
             this.lastStep = this.startTime;
 
-            window.raf(this.step.bind(this));
+            window.requestAnimationFrame(this.step.bind(this));
         },
 
         step: function (timestamp) {
@@ -66,14 +67,31 @@ define(['Class'], function (Class) {
             this.update(stepTime, progress);
             this.draw();
 
-            window.raf(this.step.bind(this));
+            window.requestAnimationFrame(this.step.bind(this));
         },
 
         update: function (stepTime, progress) {
+        
+            var modules = this.options.modules,
+                len = modules.length,
+                x;
+
+            for (x = 0; x < len; x += 1) {
+                modules[x].update(stepTime, progress);
+            }
+
         },
 
         draw: function () {
-            this.ctx.fillRect(0, 0, this.options.width, this.options.height);
+
+            var modules = this.options.modules,
+                len = modules.length,
+                x;
+
+            for (x = 0; x < len; x += 1) {
+                modules[x].draw(this.ctx);
+            }
+
         },
 
         message: function (data) {

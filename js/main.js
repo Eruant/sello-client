@@ -11,20 +11,28 @@ requirejs.config({
 	  }
 });
 
-define(['Essence', 'socketio'], function(Essence, io) {
+define(['Essence', 'World', 'socketio'], function(Essence, World, io) {
 
-  var socket = io.connect('http://sello.herokuapp.com'),
-      w = new Essence({
-          el: document.body,
-          width: document.body.clientWidth,
-          height: document.body.clientHeight
+  var el = document.body,
+      w = document.body.clientWidth,
+      h = document.body.clientHeight,
+      socket = io.connect('http://sello.herokuapp.com'),
+      world = new World({
+          width: w,
+          height: h
+      }),
+      scene = new Essence({
+          el: el,
+          width: w,
+          height: h,
+          modules: [world]
       });
 
   window.onresize = function () {
-      w.resize(document.body.clientWidth, document.body.clientHeight);
+      scene.resize(document.body.clientWidth, document.body.clientHeight);
   };
 
   socket.on('msg', function (data) {
-      w.message(data);
+      scene.message(data);
   });
 });
