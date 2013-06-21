@@ -4,7 +4,8 @@ define(['Class'], function (Class) {
 
         defaults: {
             width: 600,
-            height: 400
+            height: 400,
+           dummy: true
         },
 
         init: function (options) {
@@ -27,8 +28,8 @@ define(['Class'], function (Class) {
             this.options = opts;
 			
 			this.canvas = document.createElement('canvas');
-            this.canvas.width = this.width;
-            this.canvas.height = this.height;
+            this.canvas.width = this.options.width;
+            this.canvas.height = this.options.height;
 			this.ctx = this.canvas.getContext('2d');
         },
 
@@ -36,6 +37,8 @@ define(['Class'], function (Class) {
         },
 
         draw: function (ctx) {
+            ctx.fillStyle = "#333";
+            ctx.fillRect(0, 0, this.options.width, this.options.height);
         }
 
     });
