@@ -3,8 +3,13 @@ define(['Class'], function (Class) {
 	return Class.extend({
 
 		defaults: {
+			x: 0,
+			y: 0,
 			width: 600,
-			height: 400
+			height: 400,
+			color: {
+				background: '#666'
+			}
 		},
 
 		init: function (options) {
@@ -36,13 +41,26 @@ define(['Class'], function (Class) {
 			this.options.width = width;
 			this.options.height = height;
 		},
+		
+		reposition: function (x, y) {
+			this.options.x = x;
+			this.options.y = y;
+		},
 
 		update: function (stepTime, progress) {
         },
 
 		draw: function (ctx) {
-			ctx.fillStyle = "#333";
-			ctx.fillRect(0, 0, this.options.width, this.options.height);
+			ctx.fillStyle = this.options.color.background;
+			ctx.fillRect(this.options.x, this.options.y, this.options.width, this.options.height);
+			
+			ctx.textAlign = 'right';
+			ctx.textBaseline = 'bottom';
+			ctx.font = '10px Arial';
+			ctx.fillStyle = '#333';
+			ctx.fillText(this.options.label, this.options.x + this.options.width - 8, this.options.y + this.options.height - 8);
+			ctx.fillStyle = '#fff';
+			ctx.fillText(this.options.label, this.options.x + this.options.width - 10, this.options.y + this.options.height - 10);
 		}
 
     });
