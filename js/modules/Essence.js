@@ -1,4 +1,6 @@
+/*globals define, window*/
 define(['Class'], function (Class) {
+	'use strict';
 
     window.requestAnimationFrame = (function () {
         return window.requestAnimationFrame
@@ -6,7 +8,7 @@ define(['Class'], function (Class) {
             || window.mozRequestAnimationFrame
             || window.oRequestAnimationFrame
             || window.msRequestAnimationFrame
-            || function (/* function */ callback, /* DOMElement */ element){
+            || function (callback, element) {
                 window.setTimeout(callback, 1000 / 60);
             };
     }());
@@ -40,7 +42,7 @@ define(['Class'], function (Class) {
             this.options = opts;
 
             // create the canvas to draw on
-            this.canvas = document.createElement('canvas');
+            this.canvas = window.document.createElement('canvas');
             this.canvas.width = this.options.width;
             this.canvas.height = this.options.height;
             this.ctx = this.canvas.getContext('2d');

@@ -1,4 +1,6 @@
+/*globals define, window*/
 define(['Class'], function (Class) {
+	'use strict';
 
     return Class.extend({
 
@@ -26,7 +28,7 @@ define(['Class'], function (Class) {
 
             this.options = opts;
 			
-			this.canvas = document.createElement('canvas');
+			this.canvas = window.document.createElement('canvas');
             this.canvas.width = 210;
             this.canvas.height = 210;
 			this.ctx = this.canvas.getContext('2d');
@@ -105,7 +107,7 @@ define(['Class'], function (Class) {
         },
 
         draw: function (ctx) {
-            ctx.drawImage(this.canvas, 0,0);
+            ctx.drawImage(this.canvas, 0, 0);
         }
 
     });
