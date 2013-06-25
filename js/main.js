@@ -11,7 +11,7 @@ requirejs.config({
 	}
 });
 
-define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office'], function(Essence, Watermark, World, io, Office) {
+define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office', 'Debug'], function(Essence, Watermark, World, io, Office, Debug) {
 
 	var el = document.body,
 		w = document.body.clientWidth,
@@ -67,11 +67,14 @@ define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office'], function(Es
 				background: '#663'
 			}
 		}),
+		debug = new Debug({
+			display: true
+		}),
 		scene = new Essence({
 			el: el,
 			width: w,
 			height: h,
-			modules: [world, london, lewis, newYork, sanFrancisco, watermark]
+			modules: [world, london, lewis, newYork, sanFrancisco, watermark, debug]
 		});
 
 	window.onresize = function () {
