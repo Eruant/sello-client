@@ -44,14 +44,14 @@ define(['Class'], function (Class) {
             ctx.fillStyle = '#f06';
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.lineTo(210, 0);
-            ctx.lineTo(0, 210);
+            ctx.lineTo(100, 100);
+            ctx.lineTo(0, 200);
             ctx.closePath();
             ctx.fill();
 
             ctx.fillStyle = '#fff';
             ctx.save();
-            ctx.translate(20, 20);
+            ctx.translate(10, 28);
 
             ctx.beginPath();
             
@@ -107,8 +107,11 @@ define(['Class'], function (Class) {
         },
 
         draw: function (ctx) {
-            ctx.drawImage(this.canvas, 0, 0);
-        }
+            ctx.drawImage(this.canvas, 0, (this.options.height / 2) - 100);
+        },
+		
+		message: function (msg) {
+		}
 
     });
 

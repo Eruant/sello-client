@@ -63,6 +63,9 @@ define(['Class'], function (Class) {
 			ctx.fillText(this.options.label, this.options.x + this.options.width - 8, this.options.y + this.options.height - 8);
 			ctx.fillStyle = '#fff';
 			ctx.fillText(this.options.label, this.options.x + this.options.width - 10, this.options.y + this.options.height - 10);
+		},
+		
+		message: function (msg) {
 		}
 
     });

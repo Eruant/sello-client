@@ -45,6 +45,9 @@ define(['Class'], function (Class) {
 		draw: function (ctx) {
 			ctx.fillStyle = "#333";
 			ctx.fillRect(0, 0, this.options.width, this.options.height);
+		},
+		
+		message: function (msg) {
 		}
 
     });

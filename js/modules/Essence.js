@@ -96,8 +96,14 @@ define(['Class'], function (Class) {
 
         },
 
-        message: function (data) {
-            // do something with the socket data
+        message: function (msg) {
+			var modules = this.options.modules,
+				len = modules.length,
+				x;
+
+            for (x = 0; x < len; x += 1) {
+                modules[x].message(msg);
+            }
         },
 
         resize: function (width, height) {
