@@ -13,6 +13,8 @@ define(['Class'], function (Class) {
 				background: '#666'
 			}
 		},
+		
+		people: [],
 
 		init: function (options) {
 
@@ -50,22 +52,64 @@ define(['Class'], function (Class) {
 		},
 
 		update: function (stepTime, progress) {
+			
+			var len = this.people.length,
+				i,
+				person;
+			
+			for (i = 0; i < len; i += 1) {
+				
+				person = this.people[i];
+				
+				person.options.x += person.options.speedX;
+				person.options.y += person.options.speedY;
+				if (person.options.x > this.options.width) {
+					person.options.x = 0;
+				}
+			}
         },
 
 		draw: function (ctx) {
-			ctx.fillStyle = this.options.color.background;
-			ctx.fillRect(this.options.x, this.options.y, this.options.width, this.options.height);
 			
-			ctx.textAlign = 'right';
-			ctx.textBaseline = 'bottom';
-			ctx.font = '10px Arial';
-			ctx.fillStyle = '#333';
-			ctx.fillText(this.options.label, this.options.x + this.options.width - 8, this.options.y + this.options.height - 8);
-			ctx.fillStyle = '#fff';
-			ctx.fillText(this.options.label, this.options.x + this.options.width - 10, this.options.y + this.options.height - 10);
+			var len = this.people.length,
+				i,
+				person;
+			
+			this.ctx.fillStyle = this.options.color.background;
+			this.ctx.fillRect(0, 0, this.options.width, this.options.height);
+			
+			this.ctx.textAlign = 'right';
+			this.ctx.textBaseline = 'bottom';
+			this.ctx.font = '10px Arial';
+			this.ctx.fillStyle = '#333';
+			this.ctx.fillText(this.options.label, this.options.width - 8, this.options.height - 8);
+			this.ctx.fillStyle = '#fff';
+			this.ctx.fillText(this.options.label, this.options.width - 10, this.options.height - 10);
+			
+			for (i = 0; i < len; i += 1) {
+				
+				person = this.people[i];
+				this.ctx.save();
+				this.ctx.translate(person.options.x, person.options.y);
+				this.ctx.fillStyle = person.options.color;
+				this.ctx.fillRect(0, 0, 10, 100);
+				
+				this.ctx.save();
+				this.ctx.translate(15, -5);
+				this.ctx.rotate(-(Math.PI / 4));
+				this.ctx.textAlign = 'left';
+				this.ctx.textBaseline = 'bottom';
+				this.ctx.fillText(person.options.name, 0, 0);
+				this.ctx.restore();
+				
+				this.ctx.restore();
+			}
+			
+			ctx.drawImage(this.canvas, this.options.x, this.options.y);
 		},
 		
 		message: function (msg) {
+			
 		}
 
     });

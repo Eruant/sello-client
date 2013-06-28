@@ -1,3 +1,4 @@
+/*globals requirejs, define, window*/
 requirejs.config({
 	baseUrl: 'js/modules',
 	shim: {
@@ -8,14 +9,16 @@ requirejs.config({
 	paths: {
 		'lib': '../lib',
 		'socketio': 'http://sello.herokuapp.com/socket.io/socket.io'
-	}
+	},
+	urlArgs: "bust=" + (new Date()).getTime()
 });
 
-define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office', 'Debug'], function(Essence, Watermark, World, io, Office, Debug) {
+define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office', 'Debug', 'Person'], function (Essence, Watermark, World, io, Office, Debug, Person) {
+	'use strict';
 
-	var el = document.body,
-		w = document.body.clientWidth,
-		h = document.body.clientHeight,
+	var el = window.document.body,
+		w = window.document.body.clientWidth,
+		h = window.document.body.clientHeight,
 		halfW = Math.floor(w / 2),
 		halfH = Math.floor(h / 2),
 		socket = io.connect('http://sello.herokuapp.com'),
@@ -37,8 +40,8 @@ define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office', 'Debug'], fu
 				background: '#363'
 			}
 		}),
-		lewis = new Office({
-			label: "Lewis",
+		brighton = new Office({
+			label: "Brighton",
 			x: halfW + 5,
 			y: 10,
 			width: halfW - 15,
@@ -74,19 +77,69 @@ define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office', 'Debug'], fu
 			el: el,
 			width: w,
 			height: h,
-			modules: [world, london, lewis, newYork, sanFrancisco, watermark, debug]
+			modules: [world, london, brighton, newYork, sanFrancisco, watermark, debug]
 		});
 
 	window.onresize = function () {
 		
-		var w = document.body.clientWidth,
-			h = document.body.clientHeight;
+		var w = window.document.body.clientWidth,
+			h = window.document.body.clientHeight;
 			
 		scene.resize(w, h);
 		world.resize(w, h);
 	};
 	
 	socket.on('msg', function (data) {
-		scene.message(data);
+		
+		var offices = data.offices,
+			office_len = offices.length,
+			i,
+			office,
+			people,
+			people_len,
+			j,
+			person;
+			
+		for (i = 0; i < office_len; i += 1) {
+			office = offices[i];
+			switch (office.label) {
+			case 'London':
+				people = office.users;
+				people_len = people.length;
+				
+				for (j = 0; j < people_len; j += 1) {
+					person = new Person({ name: people[j], speedX: (Math.random() * 2) });
+					london.people.push(person);
+				}
+				break;
+			case 'Brighton':
+				people = office.users;
+				people_len = people.length;
+				
+				for (j = 0; j < people_len; j += 1) {
+					person = new Person({ name: people[j], speedX: (Math.random() * 2) });
+					brighton.people.push(person);
+				}
+				break;
+			case 'New York':
+				people = office.users;
+				people_len = people.length;
+				
+				for (j = 0; j < people_len; j += 1) {
+					person = new Person({ name: people[j], speedX: (Math.random() * 2) });
+					newYork.people.push(person);
+				}
+				break;
+			case 'San Francisco':
+				people = office.users;
+				people_len = people.length;
+				
+				for (j = 0; j < people_len; j += 1) {
+					person = new Person({ name: people[j], speedX: (Math.random() * 2) });
+					sanFrancisco.people.push(person);
+				}
+				break;
+			}
+		}
 	});
 });

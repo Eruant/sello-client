@@ -41,7 +41,7 @@ define(['Class'], function (Class) {
 
 		update: function (stepTime, progress) {
 			this.fps = Math.floor(1000 / stepTime);
-			this.fpsHeight = (this.options.height / 2) + (this.fps - 60);
+			this.fpsHeight = (this.options.height / 2) - (this.fps - 60);
         },
 
 		draw: function (ctx) {
