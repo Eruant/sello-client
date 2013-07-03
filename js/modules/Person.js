@@ -6,8 +6,8 @@ define(['Class'], function (Class) {
 
 		defaults: {
 			name: 'unknown',
-			x: 20,
-			y: 20,
+			x: 0,
+			y: 120,
 			speedX: 10,
 			speedY: 0,
 			color: '#fff'

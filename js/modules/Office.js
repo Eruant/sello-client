@@ -13,8 +13,6 @@ define(['Class'], function (Class) {
 				background: '#666'
 			}
 		},
-		
-		people: [],
 
 		init: function (options) {
 
@@ -39,6 +37,8 @@ define(['Class'], function (Class) {
 			this.canvas.width = this.options.width;
 			this.canvas.height = this.options.height;
 			this.ctx = this.canvas.getContext('2d');
+			
+			this.people = []; // create a local array of people
 		},
 		
 		resize: function (width, height) {
@@ -63,8 +63,35 @@ define(['Class'], function (Class) {
 				
 				person.options.x += person.options.speedX;
 				person.options.y += person.options.speedY;
+				
 				if (person.options.x > this.options.width) {
+					person.options.x = this.options.width;
+					person.options.speedX = -person.options.speedX;
+				} else if (person.options.x < 0) {
 					person.options.x = 0;
+					person.options.speedX = -person.options.speedX;
+				}
+				person.options.speedX += (Math.random() - 0.5);
+				if (person.options.speedX > 3) {
+					person.options.speedX = 3;
+				}
+				if (person.options.speedX < -3) {
+					person.options.speedX = -3;
+				}
+				
+				if (person.options.y > this.options.height - 50) {
+					person.options.y = this.options.height - 50;
+					person.options.speedY = -person.options.speedY;
+				} else if (person.options.y < 50) {
+					person.options.y = 50;
+					person.options.speedY = -person.options.speedY;
+				}
+				person.options.speedY += (0.25 * (Math.random() - 0.5));
+				if (person.options.speedY > 1) {
+					person.options.speedY = 1;
+				}
+				if (person.options.speedY < -1) {
+					person.options.speedY = -1;
 				}
 			}
         },
@@ -92,7 +119,7 @@ define(['Class'], function (Class) {
 				this.ctx.save();
 				this.ctx.translate(person.options.x, person.options.y);
 				this.ctx.fillStyle = person.options.color;
-				this.ctx.fillRect(0, 0, 10, 100);
+				this.ctx.fillRect(0, 0, 10, 40);
 				
 				this.ctx.save();
 				this.ctx.translate(15, -5);

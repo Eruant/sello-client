@@ -108,7 +108,7 @@ define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office', 'Debug', 'Pe
 				people_len = people.length;
 				
 				for (j = 0; j < people_len; j += 1) {
-					person = new Person({ name: people[j], speedX: (Math.random() * 2) });
+					person = new Person({ name: people[j], speedX: (Math.random() * 2), y: london.height });
 					london.people.push(person);
 				}
 				break;
@@ -117,7 +117,7 @@ define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office', 'Debug', 'Pe
 				people_len = people.length;
 				
 				for (j = 0; j < people_len; j += 1) {
-					person = new Person({ name: people[j], speedX: (Math.random() * 2) });
+					person = new Person({ name: people[j], speedX: (Math.random() * 2), y: brighton.height });
 					brighton.people.push(person);
 				}
 				break;
@@ -126,7 +126,7 @@ define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office', 'Debug', 'Pe
 				people_len = people.length;
 				
 				for (j = 0; j < people_len; j += 1) {
-					person = new Person({ name: people[j], speedX: (Math.random() * 2) });
+					person = new Person({ name: people[j], speedX: (Math.random() * 2), y: newYork.height });
 					newYork.people.push(person);
 				}
 				break;
@@ -135,7 +135,7 @@ define(['Essence', 'Bynd-watermark', 'World', 'socketio', 'Office', 'Debug', 'Pe
 				people_len = people.length;
 				
 				for (j = 0; j < people_len; j += 1) {
-					person = new Person({ name: people[j], speedX: (Math.random() * 2) });
+					person = new Person({ name: people[j], speedX: (Math.random() * 2), y: sanFrancisco.height });
 					sanFrancisco.people.push(person);
 				}
 				break;
